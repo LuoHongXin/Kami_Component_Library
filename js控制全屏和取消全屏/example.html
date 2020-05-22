@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="qp">全屏</button>
+    <button id="cqp">取消全屏</button>
+</body>
+<script>
+     var qpbtn = document.getElementById("qp");
+     var cancelbtn = document.getElementById("cqp");
+     //全屏按钮事件
+     qpbtn.onclick = function(){
+        launchFullscreen(document.documentElement); 
+     };
+     //取消全屏按钮事件
+     cancelbtn.onclick = function () {
+        exitFullscreen();
+     }
+// 启动全屏!
+// launchFullScreen(document.documentElement); // 整个网页
+// launchFullScreen(document.getElementById("videoElement")); // 某个页面元素
+     function launchFullscreen(element) {
+        if(element.requestFullscreen) {//谷歌或一般浏览器
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {//火狐浏览器
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {//谷歌、国内多数浏览器
+            element.webkitRequestFullscreen();
+        } else if(element.msExitFullscreen) {//IE浏览器
+            element.msExitFullscreen();
+        }
+    }
+//退出全屏
+function exitFullscreen() {
+    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.webkitIsFullScreen || document.mozFullScreen;
+     if(fullscreenElement){//全屏情况才有退出
+        if(document.exitFullscreen) {//谷歌或一般浏览器
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {//火狐浏览器
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {//谷歌、国内多数浏览器
+            document.webkitExitFullscreen();
+        } else if (document.msRequestFullscreen) {//IE浏览器
+            document.msRequestFullscreen();
+        }
+     }
+}
+/**
+ * 监听全屏状态变化
+ */
+document.addEventListener('fullscreenchange', Fn);
+document.addEventListener('webkitfullscreenchange', Fn);
+document.addEventListener('mozfullscreenchange', Fn);
+document.addEventListener('msfullscreenchange', Fn);
+function Fn() {
+    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.webkitIsFullScreen || document.mozFullScreen;
+    //全屏按钮切换类
+    if (fullscreenElement) {//目前全屏
+        console.log('目前全屏')
+    }else {//目前不是全屏
+        console.log('目前不是全屏')
+    }
+}
+</script>
+</html>
