@@ -20,17 +20,17 @@
 ``` js
 function exitFullscreen() {
     var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.webkitIsFullScreen || document.mozFullScreen;
-     if(fullscreenElement){//全屏情况才有退出
+    if(fullscreenElement){//全屏情况才有退出
         if(document.exitFullscreen) {//谷歌或一般浏览器
             document.exitFullscreen();
         } else if(document.mozCancelFullScreen) {//火狐浏览器
             document.mozCancelFullScreen();
         } else if(document.webkitExitFullscreen) {//谷歌、国内多数浏览器
             document.webkitExitFullscreen();
-        } else if (document.msRequestFullscreen) {//IE浏览器
-            document.msRequestFullscreen();
-        }
-     }
+        } 
+     }else if (document.msExitFullscreen) {//IE浏览器
+        document.msExitFullscreen();
+    }
 }
 ``` 
 ## 监听全屏状态变化
