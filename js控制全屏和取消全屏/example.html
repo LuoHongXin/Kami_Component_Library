@@ -30,8 +30,8 @@
             element.mozRequestFullScreen();
         } else if(element.webkitRequestFullscreen) {//谷歌、国内多数浏览器
             element.webkitRequestFullscreen();
-        } else if(element.msExitFullscreen) {//IE浏览器
-            element.msExitFullscreen();
+        } else if(element.msRequestFullscreen) {//IE浏览器
+            element.msRequestFullscreen();
         }
     }
 //退出全屏
@@ -44,8 +44,8 @@ function exitFullscreen() {
             document.mozCancelFullScreen();
         } else if(document.webkitExitFullscreen) {//谷歌、国内多数浏览器
             document.webkitExitFullscreen();
-        } else if (document.msRequestFullscreen) {//IE浏览器
-            document.msRequestFullscreen();
+        } else if (document.msExitFullscreen) {//IE浏览器
+            document.msExitFullscreen();
         }
      }
 }
