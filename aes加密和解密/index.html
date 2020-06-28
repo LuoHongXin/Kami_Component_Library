@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aes加密和解密</title>
+</head>
+<body>
+    
+</body>
+<script src="./crypto/core.min.js"></script>
+<script src="./crypto/enc-base64.min.js"></script>
+<script src="./crypto/md5.min.js"></script>
+<script src="./crypto/evpkdf.min.js"></script>
+<script src="./crypto/cipher-core.min.js"></script>
+<script src="./crypto/aes.min.js"></script>
+<script src="./crypto/pad-pkcs7.min.js"></script>
+<script src="./crypto/mode-ecb.min.js"></script>
+<script src="./crypto/enc-utf8.min.js"></script>
+<script src="./crypto/enc-hex.min.js"></script>
+<script>
+    //第一种
+     function encrypt (content,key){//aes加密
+            if(!content){return content;}
+            key = CryptoJS.enc.Utf8.parse(key);
+            var sContent = CryptoJS.enc.Utf8.parse(content);
+            var encrypted = CryptoJS.AES.encrypt(sContent,key,{mode:CryptoJS.mode.ECB,padding:CryptoJS.pad.Pkcs7});
+            var res = encrypted.ciphertext.toString();
+            return res;
+        };
+    function decrypt (content,key){//aes加密
+            if(!content){return content;}
+            key = CryptoJS.enc.Utf8.parse(key);
+            var decryptedHexStr = CryptoJS.enc.Hex.parse(content);
+            var sContent = CryptoJS.enc.Base64.stringify(decryptedHexStr);
+            var decrypted = CryptoJS.AES.decrypt(sContent,key,{mode:CryptoJS.mode.ECB,padding:CryptoJS.pad.Pkcs7});
+            var res = decrypted.toString(CryptoJS.enc.Utf8);
+            return res;
+        }
+    var key = "lhx"+Date.parse(new Date())
+    var mm = encrypt('lhx','十六位十六进制数作为秘钥');
+    console.log('加密',mm)
+    var jm = decrypt(mm,'十六位十六进制数作为秘钥')
+    console.log('解密',jm)
+    //第二种
+        var iv  = CryptoJS.enc.Utf8.parse('十六位十六进制数作为秘钥偏移量'); 
+    function encrypt2 (content,key){//aes加密
+            if(!content){return content;}
+            key = CryptoJS.enc.Utf8.parse(key);
+            var sContent = CryptoJS.enc.Utf8.parse(content);
+            var encrypted = CryptoJS.AES.encrypt(sContent,key,{iv: iv,mode:CryptoJS.mode.ECB,padding:CryptoJS.pad.Pkcs7});
+            var res = encrypted.ciphertext.toString();
+            return res;
+        };
+    function decrypt2 (content,key){//aes加密
+            if(!content){return content;}
+            key = CryptoJS.enc.Utf8.parse(key);
+            var decryptedHexStr = CryptoJS.enc.Hex.parse(content);
+            var sContent = CryptoJS.enc.Base64.stringify(decryptedHexStr);
+            var decrypted = CryptoJS.AES.decrypt(sContent,key,{iv: iv,mode:CryptoJS.mode.ECB,padding:CryptoJS.pad.Pkcs7});
+            var res = decrypted.toString(CryptoJS.enc.Utf8);
+            return res;
+        }
+    var key = "lhx"+Date.parse(new Date())
+    var mm2 = encrypt2('lhx','十六位十六进制数作为秘钥');
+    console.log('加密',mm2)
+    var jm2 = decrypt2(mm2,'十六位十六进制数作为秘钥')
+    console.log('解密',jm2)
+    //第三种
+    function Encrypt3(word,key){
+        return CryptoJS.AES.encrypt(word,key).toString();
+    }
+    function Decrypt3(word,key){
+        return CryptoJS.AES.decrypt(word,key).toString(CryptoJS.enc.Utf8);
+    }
+    var mm = Encrypt3('lhx','密钥');
+    console.log(mm)
+    var jm = Decrypt3(mm,'密钥');
+    console.log(jm)
+</script>
+</html>
