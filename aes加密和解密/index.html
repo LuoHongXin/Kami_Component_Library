@@ -19,7 +19,7 @@
 <script src="./crypto/enc-utf8.min.js"></script>
 <script src="./crypto/enc-hex.min.js"></script>
 <script>
-    //第一种
+    //第一种（正常的用法）
      function encrypt (content,key){//aes加密
             if(!content){return content;}
             key = CryptoJS.enc.Utf8.parse(key);
@@ -42,7 +42,7 @@
     console.log('加密',mm)
     var jm = decrypt(mm,'十六位十六进制数作为秘钥')
     console.log('解密',jm)
-    //第二种
+    //第二种（比第一种多密钥偏移量）
         var iv  = CryptoJS.enc.Utf8.parse('十六位十六进制数作为秘钥偏移量'); 
     function encrypt2 (content,key){//aes加密
             if(!content){return content;}
@@ -66,7 +66,7 @@
     console.log('加密',mm2)
     var jm2 = decrypt2(mm2,'十六位十六进制数作为秘钥')
     console.log('解密',jm2)
-    //第三种
+    //第三种（最简单）
     function Encrypt3(word,key){
         return CryptoJS.AES.encrypt(word,key).toString();
     }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajaxform</title>
+</head>
+<body>
+    <form action="http://localhost:10010/upload/audio" method="post" encType="multipart/form-data">
+        <input name="file" id="uploadMusic" type="file" multiple/>
+        <button class="submit" type="submit">点击上传</button>
+    </form>
+</body>
+<script src="./jquery-1.10.1.min.js"></script>
+<script src="./jquery.form.js"></script>
+<script>
+    $(".upload-music form").ajaxForm({
+        success:function(data){
+            console.log(data);
+        }
+    })
+</script>
+</html>
