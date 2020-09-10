@@ -1,0 +1,16 @@
+{
+  "name": "demo3",
+  "version": "1.0.0",
+  "description": "css-loader 和 style-loader 是分别编译css文件为js的写法，然后用style-loader写入html作为内联样式",
+  "main": "main.js",
+  "dependencies": {
+    "css-loader": "^4.3.0",
+    "style-loader": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

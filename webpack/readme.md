@@ -8,7 +8,7 @@
 #### webpack的核心概念
 - 入口（entry）
 - 输出（output）
-- loader
+- loader（module）
 - 插件（plugins）
 
 ## 入口（entry）
@@ -177,3 +177,51 @@ loader 用于对模块的源代码进行转换。loader 可以使你在 import �
    ### 解析loader
    loader 遵循标准的模块解析。多数情况下，loader 将从 模块路径 （npm install 的 node_modules）解析。
    loader 模块需要导出为一个函数，并且使用 Node.js 兼容 JavaScript 编写。通常使用 npm 进行管理，但是也可以将自定义 loader 作为应用程序中的文件。按照约定，loader 通常被命名为 xxx-loader. 
+
+   ## 插件plugins
+   loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。一般 loader 处理不了的任务，就要考虑用插件了。
+  ### 剖析插件
+  webpack 插件是一个具有 apply 属性的JavaScript对象。 apply 属性会被 webpack compiler 调用，并且 compiler 对象可在整个编译生命周期访问。
+  ConsoleLogOnBuildWebpackPlugin.js
+  ```js
+  const pluginName = 'ConsoleLogOnBuildWebpackPlugin';
+  class ConsoleLogOnBuildWebpackPlugin {
+      apply(compiler) {
+          compiler.hooks.run.tap(pluginName, compilation => {
+              console.log("webpack 构建过程开始！")
+          });
+      }
+  }
+  ```
+  compiler hook 的 tap 方法的第一个参数，应该是驼峰式命名的插件名称。建议为此使用一个常量，以便它可以在所有hook中复用。
+
+  ### 用法
+  由于插件可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入 new 实例。根据你的 webpack 用法，这里有多种方式使用插件。
+    
+  #### 配置用法
+ 使用一个插件 ，只需 ```require()``` 插件，然后把它添加到 ```plugins``` 数组中。多数插件可以通过选项（option）自定义。也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 ```new``` 操作符来创建它的一个实例。
+webpack.config.js
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过npm安装
+const webpack = require('webpack'); // 用于访问内置插件
+const path = require('path');
+
+const config = {
+    entry: './path/to/my/entry/file.js',
+    output: {
+       filename: 'xxx.bundle.js',
+       path: path.resolve(_dirname,'dist')
+    },
+    module:{
+        rules: [
+            {test: /\.txt$/, use: 'raw-loader'}
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({template: './src/index.html'})
+    ]
+};
+module.exports = config;
+```
+
+  
