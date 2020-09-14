@@ -4,6 +4,7 @@ css-loader 和 style-loader 是分别编译css文件为js的写法，然后用st
 - 首先安装加载器
 npm install --save-dev xxx-loader
 - 然后在webpack.config.js中可直接使用
+用loader编译css文件
 ```js
 module.exports = {
     entry: './main.js',
