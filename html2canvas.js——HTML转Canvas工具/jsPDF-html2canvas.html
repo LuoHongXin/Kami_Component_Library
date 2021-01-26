@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsPDF-html2canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+        button {
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="capture">
+        你好，米娜桑
+        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3655819698,856049418&fm=26&gp=0.jpg" >
+    </div>
+    <button id="btn">生成PDF</button>
+</body>
+<script src="./html2canvas.js"></script>
+<script src="./jspdf.umd.min.js"></script>
+<script>
+    let btn = document.getElementById("btn");
+    btn.onclick = function () {
+        let doc = jspdf.jsPDF();
+        renderCanvasToPdf(doc).then(()=>{
+            doc.save('米娜桑')
+        })
+    }
+    function renderCanvasToPdf (pdf) {
+        return new Promise((resolve,reject) => {
+            html2canvas(document.querySelector("#capture"),{
+                allowTaint: true,
+                useCORS: true 
+            }).then(canvas => {
+                let contentWidth = canvas.width;
+                let contentHeight = canvas.height;
+    
+                //一页pdf显示html页面生成的canvas高度;
+                var pageHeight = contentWidth / 592.28 * 841.89;
+                //未生成pdf的html页面高度
+                var leftHeight = contentHeight;
+    
+                //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
+                let imgWidth = 595.28;
+                let imgHeight = 592.28/contentWidth * contentHeight;
+                 // canvas为转换后的Canvas对象
+                let pageData = canvas.toDataURL('image/jpeg', 1.0);
+                //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+                //当内容未超过pdf一页显示的范围，无需分页
+                if (leftHeight < pageHeight) {
+                    pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight );
+                } else {
+                    while(leftHeight > 0) {
+                        pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                        leftHeight -= pageHeight;
+                        position -= 841.89;
+                        //避免添加空白页
+                        if(leftHeight > 0) {
+                            pdf.addPage();
+                        }
+                    }
+                }
+                resolve();
+            });
+        })
+    }
+</script>
+</html>

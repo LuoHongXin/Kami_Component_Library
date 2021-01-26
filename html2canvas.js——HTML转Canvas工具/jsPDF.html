@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>jsPDF</title>
+</head>
+<body>
+    <button id="btn">生成PDF</button>
+</body>
+<script src="./jspdf.umd.min.js"></script>
+<script>
+    let btn = document.getElementById("btn");
+    btn.onclick = function () {
+        const doc = jspdf.jsPDF();
+        doc.text("Hello world!", 10, 10);
+        doc.save("a4.pdf");
+    }
+</script>
+</html>
