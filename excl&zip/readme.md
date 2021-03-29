@@ -1,0 +1,1 @@
+前端生成带有数据的table，然后利用 Export2Excel 封装好的工具，将表格导出成 excel 文件到本地
