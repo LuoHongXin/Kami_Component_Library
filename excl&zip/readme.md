@@ -21,9 +21,9 @@ import("Export2Excel.js 文件的路径").then((excel) => {
         const list = [表格数据];
         const data = formatJson(filterVal, list); // 自己写的方法处理数据
         excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: "数据名",
+          header: tHeader, // []
+          data,// []
+          filename: "文件名",
           autoWidth: true, // 是否自动宽度
           bookType:'xlsx'  // 文件类型 'xlsx', 'csv', 'txt'
         });

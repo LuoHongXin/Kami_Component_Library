@@ -145,11 +145,11 @@ export function export_table_to_excel(id) {
 }
 
 export function export_json_to_excel({
-  multiHeader = [],
-  header,
-  data,
-  filename,
-  merges = [],
+  multiHeader = [], // 主表头字段
+  header, // 表头字段
+  data, // Array 表数据
+  filename, // 生成的文件名
+  merges = [], // 需合并的单元格
   autoWidth = true,
   bookType = 'xlsx'
 } = {}) {
