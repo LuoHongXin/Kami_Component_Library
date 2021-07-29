@@ -12,7 +12,7 @@ app.use(cors());
 app.get("/photos", async (req, res) => {
     const albumId = req.query.albumId;
     // 先查询 Redis 是否有数据
-    redisClient.get("photos",async (err, data) => {
+    redisClient.get("photos", async (err, data) => {
         if (err) console.error(err);
         // 有就直接响应
         if (data != null) {
