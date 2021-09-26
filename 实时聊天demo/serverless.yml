@@ -1,0 +1,20 @@
+##应用信息##
+app: lhx-chat-app-b213a02f # app名称(app唯一识别标识)。同账号下需唯一，留空则继承组件实例名称
+component: express # [必选]要使用组件，更多组件请查看 https://github.com/serverless-components
+name: express-starter # [必选]组件实例名称
+
+# ##express 组件配置##
+# 更多配置请查看：https://github.com/serverless-components/tencent-express/blob/master/docs/configure.md
+inputs:
+  src: # 执行目录
+    src: ./
+    exclude:
+      - .env
+  region: ap-guangzhou # 部署目标地区。 更多参考 https://cloud.tencent.com/document/api/583/17238#.E5.9C.B0.E5.9F.9F.E5.88.97.E8.A1.A8
+  runtime: Nodejs10.15 # 运行环境。[Nodejs10.15, Nodejs12.16]
+  entryFile: main.js
+  apigatewayConf: # API 网关
+    protocols:
+      - http
+      - https
+    environment: release # 发布环境。[test, prepub，release]

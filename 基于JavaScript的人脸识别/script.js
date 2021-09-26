@@ -15,7 +15,7 @@ async function start() {
   document.body.append(container)
   // 获取 labeled_images 文件夹中图片带标签的引用描述
   const labeledFaceDescriptors = await loadLabeledImages();
-  // 得到FaceMatcher用于计算两张脸相似度，并设置欧氏距离阈值为 0.6（0.6 以下为匹配成功）
+  // 得到FaceMatcher用于计算两张脸相似度，并设置欧氏距离阈值为 0.4（0.4 以下为匹配成功）
   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
   console.log(faceMatcher)
   let image // buffer 流图片
@@ -51,7 +51,7 @@ async function start() {
 }
 
 function loadLabeledImages() {
-  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark', 'wukelang']
+  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark', '伍珂玥', '楚雨荨']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
