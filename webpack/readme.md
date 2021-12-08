@@ -209,8 +209,8 @@ const path = require('path');
 const config = {
     entry: './path/to/my/entry/file.js',
     output: {
-       filename: 'xxx.bundle.js',
-       path: path.resolve(_dirname,'dist')
+    filename: 'xxx.bundle.js',
+    path: path.resolve(_dirname,'dist')
     },
     module:{
         rules: [
@@ -223,5 +223,3 @@ const config = {
 };
 module.exports = config;
 ```
-
-  

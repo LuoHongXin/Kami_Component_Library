@@ -1,0 +1,1 @@
+const a = "my name is luohongxin";
