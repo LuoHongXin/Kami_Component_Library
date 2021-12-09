@@ -51,9 +51,7 @@ npm install --save @babel/polyfill
 </li>
 </ol> 
 #### 解析
-```
-通过 parser 把源码转换成抽象语法书 AST 
-```
+通过 parser 把源码转换成抽象语法书 AST 。
 这个阶段的主要任务就是把代码转成 AST，其中经过两个阶段，一个是<b>词法解析</b>和<b>语法解析</b>。当 parser 阶段开始时，首先会进行文档扫描，并在此期间进行词法分析。举例："const a = 1" 会被词法分析拆解为颗粒度最细的标记<b>（tokens）</b>： "const"、"a"、"="、"1"。
 <div style="margin-top:20px">
 词法分析结束后，将分析得到的 <b>tokens</b> 交给语法分析。而语法分析的主要任务就是根据 <b>tokens</b> 生成 AST。它会对 <b>tokens</b> 进行遍历，最终生成特定结构的 tree，而这个 tree 就是 AST。
@@ -231,8 +229,8 @@ webpack
 ```
 
 ##### 5、查看结果
-入口文件内容：
-<img src="./img/4.jpg">
-打包后输出文件内容：
-<img src="./img/5.jpg">
+入口文件内容：<br/>
+<img src="./img/4.jpg"><br/>
+打包后输出文件内容：<br/>
+<img src="./img/5.jpg"><br/>
 可以看到，代码是已经成功被转换了。
